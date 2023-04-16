@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Typography,
@@ -20,8 +20,10 @@ const useStyles = makeStyles({
   },
 });
 
-const CreateTable = ({ text }) => {
+const CreateTable = ({ text, data, setData }) => {
   const classes = useStyles();
+
+  const [rows, addRows] = useState([0]);
 
   return (
     <Box>
@@ -40,7 +42,15 @@ const CreateTable = ({ text }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          <AddRow />
+          {rows.map((row, index) => (
+            <AddRow
+              rows={rows}
+              addRows={addRows}
+              rowId={index}
+              data={data}
+              setData={setData}
+            />
+          ))}
         </TableBody>
       </Table>
     </Box>

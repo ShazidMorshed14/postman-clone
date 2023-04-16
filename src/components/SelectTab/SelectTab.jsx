@@ -4,6 +4,8 @@ import { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import CreateTable from "../CreateTable/CreateTable";
 import CreateJsonText from "../CreateJsonText/CreateJsonText";
+import { useContext } from "react";
+import { DataContext } from "../Context/DataProvider";
 
 const useStyles = makeStyles({
   component: {
@@ -16,6 +18,9 @@ const useStyles = makeStyles({
 
 const SelectTab = () => {
   const [value, setValue] = useState(0);
+
+  const { paramsData, setParamsData, headersData, setHeadersData } =
+    useContext(DataContext);
 
   const classes = useStyles();
 
@@ -49,7 +54,11 @@ const SelectTab = () => {
         id={`simple-tabpanel-${0}`}
         aria-labelledby={`simple-tab-${0}`}
       >
-        <CreateTable text={"Params"} />
+        <CreateTable
+          text={"Params"}
+          data={paramsData}
+          setData={setParamsData}
+        />
       </Box>
 
       {/* Headers box */}
@@ -59,7 +68,11 @@ const SelectTab = () => {
         id={`simple-tabpanel-${1}`}
         aria-labelledby={`simple-tab-${1}`}
       >
-        <CreateTable text={"Headers"} />
+        <CreateTable
+          text={"Headers"}
+          data={headersData}
+          setData={setHeadersData}
+        />
       </Box>
 
       {/* Body box */}

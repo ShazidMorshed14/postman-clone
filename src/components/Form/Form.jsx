@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Select, MenuItem, TextField, Button } from "@mui/material";
 import { makeStyles } from "@material-ui/styles";
+import { useContext } from "react";
+import { DataContext } from "../Context/DataProvider";
 
 const useStyles = makeStyles({
   component: {
@@ -28,19 +30,32 @@ const useStyles = makeStyles({
 
 const Form = () => {
   const classes = useStyles();
+  const { formData, setFormData } = useContext(DataContext);
+
+  const handleTypeChange = (e) => {
+    setFormData({ ...formData, type: e.target.value });
+  };
+
+  const handleUrlChange = (e) => {
+    setFormData({ ...formData, url: e.target.value });
+  };
 
   return (
     <Box className={classes.component}>
       <Select
-        //value={age}
+        value={formData.type}
         label="POST"
-        //onChange={handleChange}
+        onChange={(e) => handleTypeChange(e)}
         className={classes.select}
       >
         <MenuItem value={"POST"}>POST</MenuItem>
         <MenuItem value={"GET"}>GET</MenuItem>
       </Select>
-      <TextField className={classes.textfield} size="small" />
+      <TextField
+        className={classes.textfield}
+        size="small"
+        onChange={(e) => handleUrlChange(e)}
+      />
       <Button variant="contained" className={classes.button}>
         Send
       </Button>
